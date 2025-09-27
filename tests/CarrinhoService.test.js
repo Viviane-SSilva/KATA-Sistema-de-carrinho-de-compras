@@ -24,4 +24,19 @@ describe('CarrinhoService', () => {
     const produtos = carrinho.listarProdutos();
     expect(produtos[0].quantidade).toBe(3);
   });
+
+  test('deve atualizar o preco se o mesmo produto for adicionado com preco diferente', () => {
+    carrinho.adicionarProduto({ nome: 'teclado', preco: 100, quantidade: 1 });
+    carrinho.adicionarProduto({ nome: 'Teclado', preco: 150, quantidade: 2 });
+
+    const produto = carrinho.listarProdutos().find((p) => p.nome === 'Teclado');
+    expect(produto.preco).toBe(150);
+  });
+
+  test('deve remover produto', () => {
+    carrinho.adicionarProduto({ nome: 'Monitor', preco: 800, quantidade: 1 });
+    carrinho.removerProduto('Monitor');
+
+    expect(carrinho.listarProdutos()).toHaveLength(0);
+  });
 });
