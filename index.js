@@ -1,11 +1,14 @@
+import CarrinhoService from "./src/servicos/CarrinhoService.js";
 
-const CarrinhoCompras = require('./src/repo.product');
+const carrinho = new CarrinhoService();
 
-const carrinho = new CarrinhoCompras();
+carrinho.adicionarProduto({ nome: "Notebook", preco: 2000 }, 2);
+carrinho.adicionarProduto({ nome: "Mouse", preco: 50 }, 1);
 
+carrinho.removerProduto("Mouse");
 
-carrinho.adicionarProduto({ nome: 'Notebook', preco: 2000 });
-carrinho.adicionarProduto({ nome: 'Mouse', preco: 50 });
+carrinho.alterarQuantidade("Notebook", 1);
 
 console.log(carrinho.listarProdutos());
-console.log('Total do carrinho:', carrinho.calcularTotal());
+
+console.log("Total:", carrinho.calcularTotal());
