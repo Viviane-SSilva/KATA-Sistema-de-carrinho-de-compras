@@ -39,4 +39,20 @@ describe('CarrinhoService', () => {
 
     expect(carrinho.listarProdutos()).toHaveLength(0);
   });
+
+  test('deve alterar a quantidade do produto', () => {
+    carrinho.adicionarProduto({ nome: 'Cadeira', preco: 300, quantidade: 1 });
+    carrinho.alterarQuantidade('Cadeira', 3);
+
+    const produto = carrinho.listarProdutos().find((p) => p.nome === 'Cadeira');
+    expect(produto.quantidade).toBe(3);
+  });
+
+  test('deve calcular total corretamente', () => {
+    carrinho.adicionarProduto({ nome: 'Mesa', preco: 400, quantidade: 2 });
+    carrinho.adicionarProduto({ nome: 'Luminaria', preco: 150, quantidade: 1 });
+
+    const total = carrinho.calcularTotal();
+    expect(total).toBe(950);
+  });
 });
