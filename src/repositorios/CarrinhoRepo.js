@@ -3,13 +3,14 @@ class CarrinhoRepo {
     this.produtos = new Map();
   }
 
-  adicionarProduto(nome, dados) {
+  adicionarProduto(nome, produtoInfo) {
     if (this.produtos.has(nome)) {
       const existente = this.produtos.get(nome);
-      existente.quantidade += dados.quantidade;
+      existente.quantidade += produtoInfo.quantidade;
+      existente.preco = produtoInfo.preco;
       this.produtos.set(nome, existente);
     } else {
-      this.produtos.set(nome, { ...dados });
+      this.produtos.set(nome, { ...produtoInfo });
     }
   }
 
@@ -31,10 +32,10 @@ class CarrinhoRepo {
   }
 
   listar() {
-    return Array.from(this.produtos.entries()).map(([nome, dados]) => ({
+    return Array.from(this.produtos.entries()).map(([nome, produtoInfo]) => ({
       nome,
-      preco: dados.preco,
-      quantidade: dados.quantidade,
+      preco: produtoInfo.preco,
+      quantidade: produtoInfo.quantidade,
     }));
   }
 

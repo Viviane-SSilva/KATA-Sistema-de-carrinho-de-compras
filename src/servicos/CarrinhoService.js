@@ -1,5 +1,5 @@
-import ProdutoValidator from "../validacao/ProdutoValidator.js";
-import CarrinhoRepo from "../repositorios/CarrinhoRepo.js";
+import ProdutoValidator from '../validacao/ProdutoValidator.js';
+import CarrinhoRepo from '../repositorios/CarrinhoRepo.js';
 
 class CarrinhoService {
   constructor() {
