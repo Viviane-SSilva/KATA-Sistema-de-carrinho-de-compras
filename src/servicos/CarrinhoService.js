@@ -21,7 +21,7 @@ class CarrinhoService {
   }
 
   alterarQuantidade(nome, quantidade) {
-    return (this, this.repositorio.alterarQuantidade(nome, quantidade));
+    return this.repositorio.alterarQuantidade(nome, quantidade);
   }
 
   listarProdutos() {
@@ -37,7 +37,7 @@ class CarrinhoService {
   }
 
   calcularTotalComDesconto() {
-    const total = this.calcularTotal;
+    const total = this.calcularTotal();
 
     if (!this.cupom) return total;
 
@@ -46,14 +46,14 @@ class CarrinhoService {
       OFF50: () => DescontoService.descontoValorFixo(total, 50),
     };
 
-    const desconto = cupons[this.cupom] ? cupons[this.cupons]() : 0;
+    const desconto = cupons[this.cupom] ? cupons[this.cupom]() : 0;
 
     return total - desconto;
   }
 
   calcularFrete() {
     const total = this.calcularTotal();
-    return total > 500 ? 0 : 50;
+    return DescontoService.calcularFrete(total);
   }
 }
 

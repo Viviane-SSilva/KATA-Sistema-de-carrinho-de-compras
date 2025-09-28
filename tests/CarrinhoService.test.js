@@ -55,4 +55,48 @@ describe('CarrinhoService', () => {
     const total = carrinho.calcularTotal();
     expect(total).toBe(950);
   });
+
+  describe('Descontos e frete', () => {
+    test('deve aplicar cupom percentual corretamente', () => {
+      carrinho.adicionarProduto({
+        nome: 'Notebook',
+        preco: 2000,
+        quantidade: 1,
+      });
+      carrinho.aplicarCupom('Desconto10');
+
+      const calcularTotalComDesconto = carrinho.calcularTotalComDesconto();
+      expect(calcularTotalComDesconto).toBe(1800);
+    });
+
+    test('deve aplicar cupom de valor fixo corretamente', () => {
+      carrinho.adicionarProduto({ nome: 'Teclado', preco: 600, quantidade: 1 });
+      carrinho.aplicarCupom('OFF50');
+
+      const totalComDesconto = carrinho.calcularTotalComDesconto();
+      expect(totalComDesconto).toBe(550);
+    });
+
+    test('deve não aplicar desconto para cupom inválido', () => {
+      carrinho.adicionarProduto({ nome: 'Mouse', preco: 100, quantidade: 1 });
+      carrinho.aplicarCupom('CUPOMINVALIDO');
+
+      const totalComDesconto = carrinho.calcularTotalComDesconto();
+      expect(totalComDesconto).toBe(100);
+    });
+
+    test('deve calcular frete gratis para compras acima de 500', () => {
+      carrinho.adicionarProduto({ nome: 'Monitor', preco: 600, quantidade: 1 });
+
+      const frete = carrinho.calcularFrete();
+      expect(frete).toBe(0);
+    });
+
+    test('deve cobrar frete se total < 500', () => {
+      carrinho.adicionarProduto({ nome: 'Mouse', preco: 150, quantidade: 2 });
+
+      const frete = carrinho.calcularFrete();
+      expect(frete).toBe(50);
+    });
+  });
 });
