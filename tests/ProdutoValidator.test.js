@@ -40,4 +40,15 @@ describe('ProdutoValidator', () => {
       'Nome do produto inválido'
     );
   });
+  test('deve lançar erro se preço for inválido', () => {
+    expect(() =>
+      ProdutoValidator.validar({ nome: 'Teclado', preco: -50 })
+    ).toThrow('Preço do produto inválido');
+    expect(() =>
+      ProdutoValidator.validar({ nome: 'Teclado', preco: '100' })
+    ).toThrow('Preço do produto inválido');
+    expect(() =>
+      ProdutoValidator.validar({ nome: 'Teclado', preco: NaN })
+    ).toThrow('Preço do produto inválido');
+  });
 });
