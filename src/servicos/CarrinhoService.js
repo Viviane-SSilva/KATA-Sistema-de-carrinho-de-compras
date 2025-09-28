@@ -21,7 +21,7 @@ class CarrinhoService {
   }
 
   alterarQuantidade(nome, quantidade) {
-    return (this, this.repositorio.alterarQuantidade(nome, quantidade));
+    return this.repositorio.alterarQuantidade(nome, quantidade);
   }
 
   listarProdutos() {
@@ -53,7 +53,7 @@ class CarrinhoService {
 
   calcularFrete() {
     const total = this.calcularTotal();
-    return total > 500 ? 0 : 50;
+    return DescontoService.calcularFrete(total);
   }
 }
 
