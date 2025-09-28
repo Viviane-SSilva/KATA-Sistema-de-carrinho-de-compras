@@ -1,5 +1,6 @@
 import ProdutoValidator from '../validacao/ProdutoValidator.js';
 import CarrinhoRepo from '../repositorios/CarrinhoRepo.js';
+import DescontoService from './DescontoService.js';
 
 class CarrinhoService {
   constructor() {
@@ -29,6 +30,30 @@ class CarrinhoService {
 
   calcularTotal() {
     return this.repositorio.calcularTotal();
+  }
+
+  aplicarCupom(cupom) {
+    this.cupom = cupom;
+  }
+
+  calcularTotalComDesconto() {
+    const total = this.calcularTotal;
+
+    if (!this.cupom) return total;
+
+    const cupons = {
+      Desconto10: () => DescontoService.descontoPercentual(total, 10),
+      OFF50: () => DescontoService.descontoValorFixo(total, 50),
+    };
+
+    const desconto = cupons[this.cupom] ? cupons[this.cupons]() : 0;
+
+    return total - desconto;
+  }
+
+  calcularFrete() {
+    const total = this.calcularTotal();
+    return total > 500 ? 0 : 50;
   }
 }
 
