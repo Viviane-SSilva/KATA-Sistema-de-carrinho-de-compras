@@ -25,4 +25,19 @@ describe('ProdutoValidator', () => {
     expect(validado.nome).toBe('Mouse');
     expect(validado.preco).toBe(150);
   });
+
+  test('deve lancar erro para produto inválido', () => {
+    expect(() => ProdutoValidator.validar(null)).toThrow('Produto inválido');
+    expect(() => ProdutoValidator.validar(123)).toThrow('Produto inválido');
+    expect(() => ProdutoValidator.validar('abc')).toThrow('Produto inválido');
+  });
+
+  test('deve lançar erro para nome inválido', () => {
+    expect(() => ProdutoValidator.validar({ preco: 100 })).toThrow(
+      'Nome do produto inválido'
+    );
+    expect(() => ProdutoValidator.validar({ nome: 123, preco: 100 })).toThrow(
+      'Nome do produto inválido'
+    );
+  });
 });
