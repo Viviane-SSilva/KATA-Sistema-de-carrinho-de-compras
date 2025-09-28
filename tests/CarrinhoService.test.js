@@ -84,5 +84,19 @@ describe('CarrinhoService', () => {
       const totalComDesconto = carrinho.calcularTotalComDesconto();
       expect(totalComDesconto).toBe(100);
     });
+
+    test('deve calcular frete gratis para compras acima de 500', () => {
+      carrinho.adicionarProduto({ nome: 'Monitor', preco: 600, quantidade: 1 });
+
+      const frete = carrinho.calcularFrete();
+      expect(frete).toBe(0);
+    });
+
+    test('deve cobrar frete se total < 500', () => {
+      carrinho.adicionarProduto({ nome: 'Mouse', preco: 150, quantidade: 2 });
+
+      const frete = carrinho.calcularFrete();
+      expect(frete).toBe(50);
+    });
   });
 });
