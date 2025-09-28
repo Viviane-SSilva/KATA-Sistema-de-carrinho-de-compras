@@ -11,7 +11,7 @@ class ProdutoValidator {
     if (
       typeof produto.preco !== 'number' ||
       Number.isNaN(produto.preco) ||
-      produto.preco < 0
+      produto.preco <= 0
     ) {
       throw new TypeError('Preço do produto inválido');
     }
