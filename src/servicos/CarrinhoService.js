@@ -37,7 +37,7 @@ class CarrinhoService {
   }
 
   calcularTotalComDesconto() {
-    const total = this.calcularTotal;
+    const total = this.calcularTotal();
 
     if (!this.cupom) return total;
 
@@ -46,7 +46,7 @@ class CarrinhoService {
       OFF50: () => DescontoService.descontoValorFixo(total, 50),
     };
 
-    const desconto = cupons[this.cupom] ? cupons[this.cupons]() : 0;
+    const desconto = cupons[this.cupom] ? cupons[this.cupom]() : 0;
 
     return total - desconto;
   }
