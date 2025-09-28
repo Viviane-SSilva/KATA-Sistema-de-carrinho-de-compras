@@ -17,4 +17,21 @@ describe('DescontoService', () => {
       expect(DescontoService.descontoPercentual(1000, 1500)).toBe(0);
     });
   });
+
+  describe('descontoValorFixo', () => {
+    test('deve aplicar o desconto fixo válido', () => {
+      const desconto = DescontoService.descontoValorFixo(600, 100);
+      expect(desconto).toBe(100);
+    });
+
+    test('deve limitar desconto fixo ao valor total', () => {
+      const desconto = DescontoService.descontoValorFixo(80, 200);
+      expect(desconto).toBe(80);
+    });
+
+    test('deve retornar 0 para valor inválido (0 ou menor)', () => {
+      expect(DescontoService.descontoValorFixo(500, 0)).toBe(0);
+      expect(DescontoService.descontoValorFixo(500, -20)).toBe(0);
+    });
+  });
 });
