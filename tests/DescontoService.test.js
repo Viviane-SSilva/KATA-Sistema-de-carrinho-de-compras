@@ -34,4 +34,21 @@ describe('DescontoService', () => {
       expect(DescontoService.descontoValorFixo(500, -20)).toBe(0);
     });
   });
+
+  describe('calcularFrete', () => {
+    test('deve retornar 0 se total >= minimoFreteGratis', () => {
+      const frete = DescontoService.calcularFrete(600);
+      expect(frete).toBe(0);
+    });
+
+    test('Deve retornar valor do frete se total < minimoFreteGratis', () => {
+      const frete = DescontoService.calcularFrete(400);
+      expect(frete).toBe(50);
+    });
+
+    test('deve permitir alterar valor do frete e minimo para gratis', () => {
+      const frete = DescontoService.calcularFrete(200, 30, 300);
+      expect(frete).toBe(30);
+    });
+  });
 });
