@@ -54,7 +54,7 @@ class CarrinhoService {
 
   async calcularFrete() {
     const total = await this.calcularTotal();
-    return DescontoService.calcularFrete(total);
+    return total > 500 ? 0 : 50;
   }
 }
 
