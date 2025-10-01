@@ -1,43 +1,44 @@
-import ProdutoValidator from '../validacao/ProdutoValidator.js';
-import CarrinhoRepo from '../repositorios/CarrinhoRepo.js';
+import CarrinhoRepoPrisma from '../repositorios/CarrinhoRepo.prisma.js';
 import DescontoService from './DescontoService.js';
+import ProdutoValidator from '../validacao/ProdutoValidator.js';
 
 class CarrinhoService {
   constructor() {
-    this.repositorio = new CarrinhoRepo();
+    this.repositorio = new CarrinhoRepoPrisma();
+    this.cupom = null;
   }
 
-  adicionarProduto(produto) {
+  async adicionarProduto(produto) {
     const validado = ProdutoValidator.validar(produto);
-    this.repositorio.adicionarProduto(validado.nome, {
+
+    return this.repositorio.adicionarProduto(validado.nome, {
       preco: validado.preco,
       quantidade: validado.quantidade,
     });
-    return this.repositorio.listar().find((p) => p.nome === validado.nome);
   }
 
-  removerProduto(nome) {
+  async removerProduto(nome) {
     return this.repositorio.remover(nome);
   }
 
-  alterarQuantidade(nome, quantidade) {
+  async alterarQuantidade(nome, quantidade) {
     return this.repositorio.alterarQuantidade(nome, quantidade);
   }
 
-  listarProdutos() {
+  async listarProdutos() {
     return this.repositorio.listar();
   }
 
-  calcularTotal() {
-    return this.repositorio.calcularTotal();
+  async calcularTotal() {
+    return await this.repositorio.calcularTotal();
   }
 
   aplicarCupom(cupom) {
     this.cupom = cupom;
   }
 
-  calcularTotalComDesconto() {
-    const total = this.calcularTotal();
+  async calcularTotalComDesconto() {
+    const total = await this.calcularTotal();
 
     if (!this.cupom) return total;
 
@@ -51,9 +52,9 @@ class CarrinhoService {
     return total - desconto;
   }
 
-  calcularFrete() {
-    const total = this.calcularTotal();
-    return DescontoService.calcularFrete(total);
+  async calcularFrete() {
+    const total = await this.calcularTotal();
+    return total > 500 ? 0 : 50;
   }
 }
 
