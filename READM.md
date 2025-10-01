@@ -1,5 +1,5 @@
-Sistema de Carrinho de Compras
-API RESTful para gerenciamento de carrinho de compras com funcionalidades de adicionar, remover, listar e alterar quantidade de produtos.
+**Sistema de Carrinho de Compras
+API RESTful para gerenciamento de carrinho de compras com funcionalidades de adicionar, remover, listar e alterar quantidade de produtos.**
 
 🚀 Tecnologias
 Node.js
@@ -40,10 +40,11 @@ yarn start
 O servidor estará disponível em http://localhost:3000
 
 📚 Endpoints da API
-1. Adicionar Produto
+
+<ins>1. Adicionar Produto</ins>
 POST /criar-produto
 
-Exemplo de requisição:
+**Exemplo de requisição:
 
 {
   "nome": "Notebook",
@@ -58,7 +59,8 @@ Resposta de sucesso (201):
   "preco": 3500.00,
   "quantidade": 2,
 }
-2. Listar Produtos
+
+<ins>2. Listar Produtos</ins>
 GET /listar-produtos
 
 Resposta de sucesso (200):
@@ -77,7 +79,8 @@ Resposta de sucesso (200):
     "quantidade": 5,
   }
 ]
-3. Alterar Quantidade de um Produto
+
+<ins>3. Alterar Quantidade de um Produto</ins>
 POST /alterar-quantidade-produto
 
 Exemplo de requisição:
@@ -94,7 +97,8 @@ Resposta de sucesso (200):
   "preco": 3500.00,
   "quantidade": 3,
 }
-4. Remover Produto
+
+<ins>4. Remover Produto </ins>
 DELETE /remover-produto-nome
 
 Exemplo de requisição:
@@ -105,6 +109,7 @@ Resposta de sucesso (200):
 {
   "mensagem": "Produto removido com sucesso"
 }
+
 🧪 Executando os Testes
 # Executar todos os testes
 npm test
