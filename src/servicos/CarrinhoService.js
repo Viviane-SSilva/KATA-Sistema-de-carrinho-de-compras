@@ -1,10 +1,10 @@
-import ProdutoValidator from '../validacao/ProdutoValidator.js';
-import CarrinhoRepo from '../repositorios/CarrinhoRepo.js';
+import CarrinhoRepoPrisma from '../repositorios/CarrinhoRepo.prisma.js';
 import DescontoService from './DescontoService.js';
+import ProdutoValidator from '../validacao/ProdutoValidator.js';
 
 class CarrinhoService {
   constructor() {
-    this.repositorio = new CarrinhoRepo();
+    this.repositorio = new CarrinhoRepoPrisma();
   }
 
   adicionarProduto(produto) {
